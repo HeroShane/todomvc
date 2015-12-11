@@ -37,6 +37,7 @@ export default Ember.Component.extend({
 
     deleteItem: function(){
       console.info("delete item", this.targetItem.id)
+      this.parentView.sendAction("deleteItem", this.targetItem.id)
     }
 
   }

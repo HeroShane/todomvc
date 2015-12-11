@@ -26,7 +26,7 @@ class V1::Api::TodosController < ApplicationController
 
   def destroy
     if @todo.destroy
-      render json: {msg: "success"}    
+      render json: @todo, serializer: TodoSerializer
     else
       render json: {msg: @todo.errors.full_messages }, status: 403
     end
@@ -34,7 +34,7 @@ class V1::Api::TodosController < ApplicationController
 
   private
   def todo_params
-    params.require(:todo).permit(:content, :state)
+    params.require(:todo).permit(:detail, :state)
   end
 
   def find_todo

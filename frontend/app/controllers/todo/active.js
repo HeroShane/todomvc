@@ -3,15 +3,16 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
     modelStateChanged: function(){
-      console.info(" active model  item state change ... ")
+      // console.info(" active model  item state change ... ")
       let _record = this.get("model").filterBy("state", 0)
-      this.set("model",_record)
-    }.observes("records.@each.state"),
+      this.set("records",_record)
+    }.observes("model.@each.state"),
 
 
     modelCountChanged: function(){
-      console.info(" active model  item count change ... ")
-      return this.get("model").filterBy("state", 0)
-    }.observes("records.[]")
+      // console.info(" active model  item count change ... ")
+      let _record =  this.get("model").filterBy("state", 0)
+      this.set("records",_record)
+    }.observes("model.[]")
 
 });

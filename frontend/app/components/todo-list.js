@@ -3,6 +3,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   isSelectedAll: null,
   updateState: "updateState",
+  deleteItem: "deleteItem",
 
   didReceiveAttrs: function(){
   },

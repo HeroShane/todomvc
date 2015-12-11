@@ -4,32 +4,36 @@ import Ember from 'ember';
   } = Ember
 
 export default Ember.Component.extend({
+  router: null,
+  applicationController: null,
+  clearCompleted: "clearCompleted",
 
-  // currentRoute: computed("appRoute.controller.currentRouteName", function(){
-  //   console.info("current router name ...", this.get('appRoute.controller.currentRouteName'))
-  //   return this.get('appRoute.controller.currentRouteName')
-  // }),
-  // currentUrl: computed("appRoute.router.url", function(){
-  //   console.info("current router url ...", this.get("appRoute.router.url"))
-  //   return this.get("appRoute.router.url")
-  // }),
+  handlerInfos: function() {
+    //console.info("currentPath  change ...  " )
+    this.changeMenuShow( this.get("applicationController.currentPath") )
+  }.observes("applicationController.currentPath"),
 
   didInsertElement: function () {
-    // this.$("li a").removeClass("selected")
-    // let routerItem = currentRouter.split(".")
-    // this.$("li a").each( (_, item) => {
-    //   if ( `#/${routerItem.join("/")}` == $(item).attr("href") ){
-    //     $(item).addClass("selected")
-    //   }
-    // })
-    console.info("show board .... " )
   },
 
-  // routerChanged: function(){
-  //   console.info("current router change ...")
-      
-  // }.observes("currentRouter")
+  changeMenuShow: function(path){
+    let targetEles = this.$("li a");
+    let pathNames = path.split(".")
+    targetEles.removeClass("selected")
+    $.each(targetEles, function( _, _item) {
+      let href = $(_item).attr("href")
+      let url = `#/${pathNames.join("/")}`;
+      if (url === href || url == `${href}/index`) {
+        $(_item).addClass("selected")
+      }
+    })
+  },
 
+  actions: {
+    clearCompleted: function(){
+      this.sendAction("clearCompleted")
+    }
+  }
 
 
 });
